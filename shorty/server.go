@@ -1,6 +1,7 @@
 package shorty
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -8,6 +9,7 @@ import (
 
 // Start starts the HTTP server
 func Start() error {
+	http.HandleFunc("/ping", pingHandler)
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(getEnv("BIND", ":8080"), nil)
 	return nil
@@ -22,6 +24,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	log.Println(path, "->", url)
 	http.Redirect(w, r, url, 301)
+}
+
+func pingHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "pong")
 }
 
 func getEnv(key, fallback string) string {
