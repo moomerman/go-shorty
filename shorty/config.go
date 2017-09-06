@@ -16,8 +16,8 @@ var (
 	configLock = new(sync.RWMutex)
 )
 
+// Config holds the redirect configuration
 type Config struct {
-	sync.RWMutex
 	Redirects map[string]string
 }
 
