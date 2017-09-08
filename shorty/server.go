@@ -16,6 +16,8 @@ func Start() error {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Server", "shorty")
+
 	path := r.URL.Path[1:]
 	url := config.Redirects[path]
 	if url == "" {
@@ -27,6 +29,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func pingHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Server", "shorty")
 	fmt.Fprintf(w, "pong")
 }
 
